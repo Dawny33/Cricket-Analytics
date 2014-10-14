@@ -3,31 +3,28 @@ import lxml.html
 
 url1='http://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;filter=advanced;opposition=6;orderby=start;'
 url2 ='page='
-url3 ='template=results;type=batting;view=innings'
-url5 = ['http://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;orderby=start;template=results;type=batting;view=innings']
-for i in range(up,low):   #Mention the upper and lower limits
+url3 ='size=100;team=2;template=results;type=team;view=results'
+url5 = ['http://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;filter=advanced;opposition=6;orderby=start;size=100;team=2;template=results;type=team;view=results']
+for i in range(1,2):   #Mention the upper and lower limits
     url4 = url1 + url2 + str(i) + ';' + url3
     url5.append(url4)
-data = open('ODI_cric.csv','wb',)
+data = open('ODI_ind_vs_aus.csv','wb',)
 out = csv.writer(data)
-out.writerow(('Player', 'Country', 'Minutes', 'Runs','Balls Faced','Fours','Sixes','Strike Rate','Inns','Opposition'))
+out.writerow(('Team', 'Result', 'Toss', 'Bat','Opposition','Ground','Date'))
 for page in url5:
-    bmen = []
-    country = []
-    mins_crease = []
-    runs = []
-    balls_faced = []
-    fours_hit = []
-    sixes_hit=[]
-    strike_rate = []
-    innings = []
-    opposition = []
+    team = []
+    result = []
+    toss = []
+    bat = []
+    opp = []
+    ground = []
+    date = []
 
     content = lxml.html.parse(page)
     
-    bats = content.xpath('//tr[@class="data1"]/td[1]/a')
-    ct = content.xpath('//tr[@class="data1"]/td[1]/*')
-    run = content.xpath('//tr[@class="data1"]/td[2]')
+    team = content.xpath('//tr[@class="data1"]/td[1]')
+    result = content.xpath('//tr[@class="data1"]/td[2]')
+    toss = content.xpath('//tr[@class="data1"]/td[5]')
     mins = content.xpath('//tr[@class="data1"]/td[3]')
     bfs = content.xpath('//tr[@class="data1"]/td[4]')
     fours = content.xpath('//tr[@class="data1"]/td[5]')
