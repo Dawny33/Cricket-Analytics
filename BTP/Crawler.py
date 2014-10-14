@@ -1,3 +1,7 @@
+'''
+Scraper for scraping the data of head to head matches (cricket)
+Author: Jalem Raj Rohit
+'''
 import csv
 import lxml.html
 
