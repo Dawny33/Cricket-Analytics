@@ -9,7 +9,7 @@ url1='http://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;filter=ad
 url2 ='page='
 url3 ='size=100;team=2;template=results;type=team;view=results'
 url5 = ['http://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;filter=advanced;opposition=6;orderby=start;size=100;team=2;template=results;type=team;view=results']
-for i in range(1,2):   #Mention the upper and lower limits
+for i in range(1,3):   #Mention the upper and lower limits
     url4 = url1 + url2 + str(i) + ';' + url3
     url5.append(url4)
 data = open('ODI_ind_vs_aus.csv','wb',)
