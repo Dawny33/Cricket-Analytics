@@ -6,27 +6,32 @@
 		<meta charset="utf-8">
 		<title> D3 viz test </title>
 		<script type="text/javascript" src="../d3/d3.js"></script>
+		<style type="text/css">
+			div.bar {
+				display: inline-block;
+				width: 20px;
+				height: 75px;
+				background-color: teal;
+				margin-right: 2px;
+			}
+		</style>
 	</head>
 
 	<body>
 		<script type="text/javascript">
 		// Write your code here
-		var dataset = [5,10,15,20]
-		
+		var dataset = [5,10,15,20,25];
+
 		d3.select("body").selectAll("p")
 			.data(dataset)
 			.enter()
-			.append("p")
-			.text(function(d) {return "I can count upto" + d;
-			})
-			.style("color",function(d) {
-				if (d>10) {
-					return "red";
-				}
-				else {
-					return "blue";
-				}
+			.append("div")
+			.attr("class","bar")
+			.style("height",function(d) {
+				var barHt = d*5;
+				return barHt + "px";
 			});
+
 
 		</script>
 	</body>
