@@ -11,9 +11,24 @@
 	<body>
 		<script type="text/javascript">
 		// Write your code here
-		d3.select("body").append("p").text("New Paragraph !");
+		var dataset = [5,10,15,20]
+		
+		d3.select("body").selectAll("p")
+			.data(dataset)
+			.enter()
+			.append("p")
+			.text(function(d) {return "I can count upto" + d;
+			})
+			.style("color",function(d) {
+				if (d>10) {
+					return "red";
+				}
+				else {
+					return "blue";
+				}
+			});
+
 		</script>
-		<p>New paragraph !</p>
 	</body>
 
 </html>
