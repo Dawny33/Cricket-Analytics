@@ -20,7 +20,11 @@
 	<body>
 		<script type="text/javascript">
 		// Write your code here
-		var dataset = [5,10,15,20,25];
+		var dataset = [];
+		for (var i = 0; i < 25; i++) {
+			var newN = Math.random()*30;
+			dataset.push(newN);
+		};
 
 		d3.select("body").selectAll("p")
 			.data(dataset)
