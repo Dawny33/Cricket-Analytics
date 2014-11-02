@@ -6,6 +6,18 @@
 		<meta charset="utf-8">
 		<title> D3 viz test </title>
 		<script type="text/javascript" src="../d3/d3.js"></script>
+    <style type="text/css">
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+      }
+      .axis text {
+        font-family: sans-serif;
+        font-size: : 11px;
+      }
+    </style>
 	</head>
 
 	<body>
@@ -76,6 +88,8 @@
 
     // Now, call the axis function
         svg.append("g")
+           .attr("class","axis")
+           .attr("transform", "translate(0," + (h-pad)+")")
            .call(xaxis)
        	
 		</script>
