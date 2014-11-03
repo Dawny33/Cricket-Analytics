@@ -1,102 +1,163 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
 
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: auto;
-  position: relative;
-  width: 960px;
-}
+<html lang="en">
 
-text {
-  font: 10px sans-serif;
-}
+  <head>
+    <meta charset="utf-8">
+    <title> D3 viz test </title>
+    <script type="text/javascript" src="../d3/d3.js"></script>
+    <style type="text/css">
 
-form {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
+    #chart {
+      float: left;
+    }
 
-</style>
-<form>
-  <label><input type="radio" name="dataset" value="Pakistan" checked> Pakistan </label>
-  <label><input type="radio" name="dataset" value="WestIndies"> West Indies</label>
-  <label><input type="radio" name="dataset" value="SouthAfrica"> South Africa</label>
+    #chart2 {
+      overflow: hidden;
+      padding-left: 30px;
+      width: 300px;
+    }
 
-</form>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
+    #chart3 {
+      overflow:hidden;
+      margin-top: 30px;
+      margin-left: 90px;
+    }
+    #pp {
+      float: right;
 
-var width = 960,
-    height = 500,
-    radius = Math.min(width, height) / 2;
- 
-var color = d3.scale.category20();
- 
-var pie = d3.layout.pie()
-    .value(function(d) { return d.Pakistan; })
-    .sort(null);
- 
-var arc = d3.svg.arc()
-    .innerRadius(radius - 100)
-    .outerRadius(radius - 20);
- 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    }
 
-/*jshint multistr: true */
-var tsvData = "Pakistan	WestIndies\n\
-4	20\n\
-3	14";
+    </style>
+  </head>
 
-var data = d3.tsv.parse(tsvData);
+  <body>
+    <u><h2>Analysis for India vs Pakistan match at Adelaide</h2></u>
+    <div id="chart"></div>
+    <div id="chart2">
+        <p id="pp">xyz</p>
+    </div>
+    <div id="chart3"></div>
 
-console.log(data);
+    <script type="text/javascript">
+      var w = 200;
+      var h = 200;
+      var r = h/2;
+      var color = d3.scale.category20c();
 
-var path = svg.datum(data).selectAll("path")
-.data(pie)
-.enter().append("path")
-.attr("fill", function(d, i) { return color(i); })
-.attr("d", arc)
-.each(function(d) { this._current = d; }); // store the initial angles
+      var data = [{"label":"Category A", "value":4}, 
+                    //{"label":"Category B", "value":50}, 
+                    {"label":"Category C", "value":3}];
 
-d3.selectAll("input")
-.on("change", change);
+      var data2 = [{"label":"Category A", "value":46}, 
+                    //{"label":"Category B", "value":50}, 
+                    {"label":"Category C", "value":73}];
 
-var timeout = setTimeout(function() {
-  d3.select("input[value=\"West WestIndies\"]").property("checked", true).each(change);
-}, 2000);
+      var data3 = [{"label":"Category A", "value":8}, 
+                    //{"label":"Category B", "value":50}, 
+                    {"label":"Category C", "value":6}];
 
-function change() {
-  var value = this.value;
-  clearTimeout(timeout);
-  pie.value(function(d) { return d[value]; }); // change the value function
-  path = path.data(pie); // compute the new angles
-  path.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
-}
 
- 
-function type(d) {
-  d.Pakistan = +d.Pakistan;
-  d.WestIndies = +d.WestIndies;
-  return d;
-}
- 
-// Store the displayed angles in _current.
-// Then, interpolate from _current to the new angles.
-// During the transition, _current is updated in-place by d3.interpolate.
-function arcTween(a) {
-  var i = d3.interpolate(this._current, a);
-  this._current = i(0);
-  return function(t) {
-    return arc(i(t));
-  };
-}
- 
+      var vis = d3.select('#chart').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+      var pie = d3.layout.pie().value(function(d){return d.value;});
+
+      // declare an arc generator function
+      var arc = d3.svg.arc().outerRadius(r);
+      var arcOver = d3.svg.arc()
+              .outerRadius(r + 10);
+
+      // select paths, use arc generator to draw
+      var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+      arcs.append("svg:path")
+          .attr("fill", function(d, i){
+              return color(i);
+          })
+          .attr("d", function (d) {
+              // log the result of the arc generator to show how cool it is :)
+              console.log(arc(d));
+              return arc(d);
+          })
+           .on("mouseenter", function(d) {
+                  d3.select(this)
+                     .attr("stroke","white")
+                     .transition()
+                     .duration(1000)
+                     .attr("d", arcOver)             
+                     .attr("stroke-width",6);
+              })
+              .on("mouseleave", function(d) {
+                  d3.select(this).transition()            
+                     .attr("d", arc)
+                     .attr("stroke","none");
+              });;
+
+        // for the second chart
+      var vis2 = d3.select('#chart2').append("svg:svg").data([data2]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+      var pie2 = d3.layout.pie().value(function(d){return d.value;});
+
+      // declare an arc generator function
+      var arc2 = d3.svg.arc().outerRadius(r);
+      var arcOver2 = d3.svg.arc()
+              .outerRadius(r + 10);
+
+      // select paths, use arc generator to draw
+      var arcs2 = vis2.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+      arcs2.append("svg:path")
+          .attr("fill", function(d, i){
+              return color(i);
+          })
+          .attr("d", function (d) {
+              // log the result of the arc generator to show how cool it is :)
+              console.log(arc2(d));
+              return arc2(d);
+          })
+           .on("mouseenter", function(d) {
+                  d3.select(this)
+                     .attr("stroke","white")
+                     .transition()
+                     .duration(1000)
+                     .attr("d", arcOver2)             
+                     .attr("stroke-width",6);
+              })
+              .on("mouseleave", function(d) {
+                  d3.select(this).transition()            
+                     .attr("d", arc2)
+                     .attr("stroke","none");
+              });;
+
+      var vis3 = d3.select('#chart3').append("svg:svg").data([data3]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+      var pie3 = d3.layout.pie().value(function(d){return d.value;});
+
+      // declare an arc generator function
+      var arc3 = d3.svg.arc().outerRadius(r);
+      var arcOver3 = d3.svg.arc()
+              .outerRadius(r + 10);
+
+      // select paths, use arc generator to draw
+      var arcs3 = vis3.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+      arcs3.append("svg:path")
+          .attr("fill", function(d, i){
+              return color(i);
+          })
+          .attr("d", function (d) {
+              // log the result of the arc generator to show how cool it is :)
+              console.log(arc3(d));
+              return arc3(d);
+          })
+           .on("mouseenter", function(d) {
+                  d3.select(this)
+                     .attr("stroke","white")
+                     .transition()
+                     .duration(1000)
+                     .attr("d", arcOver2)             
+                     .attr("stroke-width",6);
+              })
+              .on("mouseleave", function(d) {
+                  d3.select(this).transition()            
+                     .attr("d", arc2)
+                     .attr("stroke","none");
+              });;
 
 </script>
+</body>
+</html>
