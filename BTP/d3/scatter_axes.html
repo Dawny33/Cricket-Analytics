@@ -23,13 +23,19 @@
 	<body>
 		<script type="text/javascript">
 		// Write your code here
-		var dataset = [[5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
-                [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]];
-
+		var dataset = [];
+    var numDataPoints = 50;
+    var xRange = Math.random() * 1000;
+    var yRange = Math.random() * 1000;
+    for (var i = 0; i < numDataPoints; i++) {
+      var newNumber1 = Math.round(Math.random() * xRange);
+      var newNumber2 = Math.round(Math.random() * yRange);
+      dataset.push([newNumber1, newNumber2]);
+    }
         // Creating an svg element
         var h = 300;
         var w = 500;
-        var pad = 20;
+        var pad = 30;
 
 		// Now, let's work with scales
        	var xscale = d3.scale.linear()
@@ -47,13 +53,19 @@
     // Creating the axes
         var xaxis = d3.svg.axis()
                           .scale(xscale)
-                          .orient("bottom");
+                          .orient("bottom")
+                          .ticks(5);
+        var yaxis = d3.svg.axis()
+                          .scale(yscale)
+                          .orient("left")
+                          .ticks(5);
+
 
        	//Creating the svg
         var svg = d3.select("body")
         		    .append("svg")
         		    .attr("width" , w)
-        		    .attr("height", h)
+        		    .attr("height", h);
 
        	svg.selectAll("circle")
        	   .data(dataset)
@@ -69,7 +81,7 @@
        	   		return rscale(d[1]);
        	   });
 
-       	svg.selectAll("text")
+       /*	svg.selectAll("text")
        	   .data(dataset)
        	   .enter()
        	   .append("text")
@@ -84,13 +96,19 @@
        	   })
        	   .attr("font-family", "sans-serif")
        	   .attr("font-size", "11px")
-       	   .attr("fill", "red");
+       	   .attr("fill", "red");  */
 
     // Now, call the axis function
         svg.append("g")
            .attr("class","axis")
            .attr("transform", "translate(0," + (h-pad)+")")
-           .call(xaxis)
+           .call(xaxis);
+
+        svg.append("g")
+           .attr("class","axis")
+           .attr("transform","translate(" + pad + ",0)")
+           .call(yaxis);
+
        	
 		</script>
 	</body>
