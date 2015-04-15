@@ -65,3 +65,5 @@ World Cup matches:
 ]
 
 
+Total Error:  51.821
+Average Error:  5.1821
