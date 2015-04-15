@@ -1,1 +1,10 @@
-Ground Selection:  The tougher the ground is for batting, the higher the score.
+Simple, easy-to-understand documentation of the project.
+
+1. Statistical Analysis:  
+	This is the most interesting and seemingly the most crucial part for the end-users, the coaching staff and the analysts; however it carries a medium level importance for the players.
+	The statistical analysis part of the project contains an in-depth analysis of previous matches played between the teams and identifying the top and the most influential players in the duel.
+	This is done so that it can complement the future neural network analysis and helps in verifying the algorithm.
+	As this analysis relies largely on numbers, proper visualizations and documentation of the analysis is very important; and proper care is taken that all of them are done so.
+	
+2. Machine Learning Analysis:
+	
