@@ -1,0 +1,42 @@
+Easy to understand documentation:
+
+Aim of the project:  
+-> As we are living in a world where sport occupies a significant part of our time and passion, so it would nt be long before technology comes in to improve the world of sports.
+-> Cricket is a sport worshipped as a religion in Asia and Australia. So, this project is an attempt to blend the amazing world of sports with the emerging field of data science.
+-> This project attempts to predict the performance of a player and a team, by analyzing previous history of games played; by implementing state-of-the-art analytics and machine learning pipelines.
+
+Implementations:
+-> As this project can be done, keeping in mind the World Cup 2015; statistical analysis of players are done; for the games played before February 15, 2015. But, the analytics and visualizations pipelines are designed, to encourage easy extension for further data and improvement.
+-> The neural network is designed; after thorough validation and cross-validation analyses on a range of data sets and shapes of data sets; so as to avoid the common problems of validation, under-fitting and over-fitting.
+-> The predicted performance and the actual performance of the players are obtained by implementing the above algorithm and are documented so as to allow further development and study on the algorithm and the approach used.
+-> As the data gets larger during the course of time, a H2O pipeline is designed with the help of people at 0xdata to allow easy processing of huge chunks of data using parallel computing cores using in-memory analytics.
+
+Results:
+-> The average error for the batsmen have turned out to be 5.1821% and for the bowlers, it is 6.7563%; which can be further improved as the data set increases.
+
+FAQs:
+1. Why is the number of layers only 3 and not more?
+Ans: We, along with our instructor did feel that it would be better to have more layers for improved training. However, after validation tests, it has been proved that anything greater than 3 would over-fit the data and anything lesser would under-fit it; which would give faulty assumption on the validation and the testing data-sets
+
+2. Why are more attributes not used in the dataset?
+Ans: As we used a formula fr calculating the batting and bowling index; most of the attributes got covered in the formula; so further using them independently would unnecessarily increase computation costs and affect running time; however bringing no further improvements on the accuracy of the algorithm. 
+
+3. Why is only the sigmoid function selected as the activation function for all the neurons?
+Ans: As stated above, analyses have been done using most of the best activation functions; and the sigmoid function is selected after thorough aalysis on the accuracy.
+
+
+Scope of further improvement:
+1. GUI can be added to the project's analysis and results. This has been partly done in form of D3.js graphs.
+2. This project can be further extendd by adding more variables like; the influence of media on the performance of the player, etc. (Work on this topic has already been started.)
+
+Technologies used:
+Python, R, Javascript, HTML, H2O
+
+The datasets and code are freely available on Github.
+The scrapper code would be provided on request.
+
+People to contact for, regarding the project:
+Dr. V.V.M.S Chandramouli
+J.Raj Rohit
+G.Raja Sekhar Reddy
+D.Siva Prakash
