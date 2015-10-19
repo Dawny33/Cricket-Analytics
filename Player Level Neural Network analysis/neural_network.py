@@ -231,7 +231,7 @@ test_pat = [
 #print shape(pat)
 nn = NN(3,1,1)
 nn.train(pat)
-nn.test(pat)
+nn.test(test_pat)
 
 #print X_test2
 #print accuracy_score(y_test, nn.predict(X_test))
